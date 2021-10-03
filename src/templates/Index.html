@@ -35,7 +35,7 @@
         </center>
         <div class="row">
             <div class="col-sm-12">
-                <table id="ProductTable" class="table table-bordered">
+                <table id="Product-Records" class="table table-bordered">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -75,18 +75,61 @@
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <button type="submit" class="btn btn-outline-primary btn-md" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product</button>
+                <button type="submit" class="btn btn-outline-primary btn-md" data-bs-toggle="modal" data-bs-target="#addProduct" id="product-create">Add Product</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Add Product Modal -->
     <div class="container">
-        <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProduct" action="">
+                        {% csrf_token %}
+                        <div class="form-group mb-3">
+                        <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" required>
+                                <option selected disabled>Category</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Toys">Toys</option>
+                                <option value="Hardware">Hardware</option>
+                                <option value="Medicine">Medicine</option>
+                                <option value="Groceries">Groceries</option>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="button" class="btn btn-outline-primary" id="p-create">Save changes</button>
+                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Product Modal -->
+    <div class="container">
+        <div class="modal fade" id="editProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -112,10 +155,27 @@
                             <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" required>
                         </div>
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-outline-primary">Save changes</button>
+                            <button type="button" class="btn btn-outline-primary" id="p-edit">Save changes</button>
                             <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Product Modal -->
+    <div class="container">
+        <div class="modal fade" id="deleteProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
                 </div>
             </div>
             </div>
