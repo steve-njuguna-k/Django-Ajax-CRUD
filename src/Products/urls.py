@@ -3,7 +3,9 @@ from django.urls import path
 
 urlpatterns = [
     path('', views.Index, name="Index"),
-    path('add/', views.AddProducts, name="AddProducts"),
-    path('edit/', views.UpdateProduct, name="UpdateProduct"),
-    path('delete/', views.DeleteProduct, name="DeleteProduct"),
+    path('api/products/', views.ProductsAPI, name="ProductsAPI"),
+    path('api/products/add/', views.AddProductAPI, name="AddProductAPI"),
+    path('api/products/<int:id>/', views.ProductsDetailsAPI, name="ProductsDetailsAPI"),
+    path('api/products/edit/<int:id>/', views.EditProductAPI, name="EditProductAPI"),
+    path('api/products/delete/<int:id>/', views.DeleteProductAPI, name="DeleteProductAPI"),
 ]
