@@ -23,7 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <table id="Product-Records" class="table table-bordered">
+                <table id="Product-Records" class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -48,7 +48,6 @@
 
     <!-- Add Product Modal -->
     <div class="container">        
-        <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -63,10 +62,12 @@
                             {% csrf_token %}
                             <input type="hidden" id="Myid" value="">
                             <div class="form-group mb-3">
-                            <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" required>
+                            <label for="p-name">Product Name</label>
+                            <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" value="" required>
                             </div>
                             <div class="form-group mb-3">
-                                <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" required>
+                                <label for="p-category">Category</label>
+                                <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" value="" required>
                                     <option selected disabled>Category</option>
                                     <option value="Electronics">Electronics</option>
                                     <option value="Furniture">Furniture</option>
@@ -77,14 +78,16 @@
                                 </select>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" required>
+                                <label for="p-quantity">Quantity</label>
+                                <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" value="" required>
                             </div>
                             <div class="form-group mb-3">
-                                <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" required>
+                                <label for="p-price">Price</label>
+                                <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" value="" required>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="button" class="btn btn-primary btn-sm" id="p-create">Save changes</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>
@@ -106,11 +109,14 @@
                     </div>
                     <div class="modal-body">
                         <form id="editProduct" action="">
+                            {% csrf_token %}
                             <input type="hidden" id="Myid" value="">
                             <div class="form-group mb-3">
+                            <label for="p-name">Product Name</label>
                             <input type="text" class="form-control" id="p-name" name="name" placeholder="Product Name" required>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="p-category">Category</label>
                                 <select class="form-control form-select" aria-placeholder="Category" id="p-category" name="category" required>
                                     <option selected disabled>Category</option>
                                     <option value="Electronics">Electronics</option>
@@ -122,14 +128,16 @@
                                 </select>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="p-quantity">Quantity</label>
                                 <input type="number" class="form-control" id="p-quantity" name="quantity" placeholder="Quantity" required>
                             </div>
                             <div class="form-group mb-3">
+                                <label for="p-price">Price</label>
                                 <input type="number" class="form-control" id="p-price" name="price" placeholder="Price" required>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="button" class="btn btn-primary btn-sm" id="p-edit">Save changes</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
                             </div>
                         </form>
                     </div>

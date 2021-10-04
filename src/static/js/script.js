@@ -41,8 +41,8 @@ $.ajax({
            "</td></tr>";
         });
         $('#Product-Records').append(trHTML);
-        }
-    });
+    }
+});
 
 //Edit Products API
 $('#Product-Records').on('click', '.update', function(){
@@ -73,6 +73,24 @@ $('#Product-Records').on('click', '.update', function(){
             $('select[name="category"]').val(result.category);
             $('input[name="quantity"]').val(result.quantity);
             $('input[name="price"]').val(result.price);
+        }
+    });
+
+});
+
+//Delete Products API
+$('#Product-Records').on('click', '.delete', function(){
+    var id = $(this).attr('id');
+    $('input[id=Myid]').val(id);
+
+    var myurl = 'http://localhost:8000/api/products/delete/'+id+'/';
+
+    $.ajax({
+        async: true,
+        url:myurl,
+        method:'DELETE',
+        success: function(result){
+            location.reload();
         }
     });
 
@@ -120,22 +138,4 @@ $('#p-edit').click(function(){
            location.reload();
         },
     })
-});
-
-//Delete Products API
-$('#Product-Records').on('click', '.delete', function(){
-    var id = $(this).attr('id');
-    $('input[id=Myid]').val(id);
-
-    var myurl = 'http://localhost:8000/api/products/delete/'+id+'/';
-
-    $.ajax({
-        async: true,
-        url:myurl,
-        method:'DELETE',
-        success: function(result){
-            location.reload();
-        }
-    });
-
 });
