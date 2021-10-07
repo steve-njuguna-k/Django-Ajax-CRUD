@@ -4,6 +4,8 @@ from .serializers import ProductSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponse
 
 def Index(request):
     return render(request, 'Index.html')
@@ -16,7 +18,7 @@ def ProductsAPI(request):
 
 @api_view(['GET'])
 def ProductsDetailsAPI(request, id):
-    product = Products.objects.get(id=id)
+    product = get_object_or_404(Products, id=id)
     serializer = ProductSerializer(product, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -31,18 +33,20 @@ def AddProductAPI(request):
 
 @api_view(['PUT'])
 def EditProductAPI(request, id):
-    product = Products.objects.get(id=id)
-    serializer = ProductSerializer(instance=product, data=request.data)
+    product = get_object_or_404(Products, id=id)
+    serializer = ProductSerializer(product, data=request.data)
     if serializer.is_valid():
         serializer.save()
+        print(request.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    print(request.data)
     return Response(serializer.errors, status=status.HTTP_304_NOT_MODIFIED)
 
 @api_view(['DELETE'])
 def DeleteProductAPI(request, id):
     if request.is_ajax():
-        product = Products.objects.get(id=id)
+        product = get_object_or_404(Products, id=id)
         product.delete()
         return Response('Product successfully Deleted!', status=status.HTTP_200_OK)
 

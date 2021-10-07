@@ -35,7 +35,7 @@ $.ajax({
     url : "http://localhost:8000/api/products/",
     dataType: "json",
     success : function (response) {
-        var trHTML = '';
+        let trHTML = '';
         $.each(response, function (i, item) {
            trHTML += "<tr><th>" + item.id + "</th><td>" + item.name + "</td><td>" + item.category + "</td><td>" + item.quantity + "</td><td>" + item.price +  "</td><td> <button class='btn btn-success update btn-sm' id ="+ item.id +" data-toggle='modal' data-target='#editProduct'>Update</button> <button class='btn btn-danger delete btn-sm' id ="+ item.id +" data-toggle='modal' data-target='#deleteProduct'>Delete</button>"
            "</td></tr>";
@@ -45,11 +45,13 @@ $.ajax({
 });
 
 //Edit Products API
-$('#Product-Records').on('click', '.update', function(){
-    var id = $(this).attr('id');
+$('#Product-Records').on('click', '.update', function(e){
+    e.preventDefault();
+    
+    let id = $(this).attr('id');
     $('input[id=Myid]').val(id);
 
-    var myurl = 'http://localhost:8000/api/products/'+id+'/';
+    let myurl = 'http://localhost:8000/api/products/'+id+'/';
 
     $( "#p-name" ).change(function() {
         $('input[name=name]').val($(this).val());
@@ -79,17 +81,24 @@ $('#Product-Records').on('click', '.update', function(){
 });
 
 //Delete Products API
-$('#Product-Records').on('click', '.delete', function(){
-    var id = $(this).attr('id');
+$('#Product-Records').on('click', '.delete', function(e){
+    e.preventDefault();
+
+    let id = $(this).attr('id');
     $('input[id=Myid]').val(id);
 
-    var myurl = 'http://localhost:8000/api/products/delete/'+id+'/';
+    let myurl = 'http://localhost:8000/api/products/delete/'+id+'/';
 
     $.ajax({
         async: true,
         url:myurl,
         method:'DELETE',
         success: function(result){
+            alert("Product Deleted!");
+            location.reload();
+        },
+        error:function(result){
+            alert("error");
             location.reload();
         }
     });
@@ -101,41 +110,64 @@ $('#create').click(function(){
 });
 
 //Save New Product Button
-$('#p-create').click(function(){
+$('#p-create').click(function(e){
+    e.preventDefault();
+
     $.ajax({
         type : 'POST',
         url : "http://localhost:8000/api/products/add/",
         data : {
-            '_token':$('input[name=_token]').val(),
-            'name':$('input[name=name]').val(),
-            'category':$('select[name=category]').val(),
-            'quantity':$('input[name=quantity]').val(),
-            'price':$('input[name=price]').val()
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            name: $('#p-name').val(),
+            category:$('#p-category').val(),
+            quantity:$('#p-quantity').val(),
+            price:$('#p-price').val(),
         },
+        dataType: "json",
         success: function(data){
-           location.reload(); 
+            alert("Product Added!");
+            console.log(data)
+            location.reload(); 
+        },
+        error:function(data){
+            alert("Product Not Added!");
+            location.reload();
         }
     })
 });
 
 //Save Edited Product Button
-$('#p-edit').click(function(){
-    var id = $("#Myid").attr("value");
+$('#p-edit').click(function(e){
+    e.preventDefault();
+
+    let id = $("#Myid").attr("value");
     console.log(id);
-    var myurl = "http://localhost:8000/api/products/edit/"+id+"/";
+
+    let name = $(".name").val();
+    let category = $(".category").val();
+    let quantity = $(".quantity").val();
+    let price = $(".price").val();
+
+    let myurl = "http://localhost:8000/api/products/edit/"+id+"/";
 
     $.ajax({
         type : 'PUT',
         url : myurl,
-        data : {
-            '_token':$('input[name=_token]').val(),
-            'name':$('input[name=name]').val(),
-            'category':$('select[name=category]').val(),
-            'quantity':$('input[name=quantity]').val(),
-            'price':$('input[name=price]').val()
+        data: {
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            name: name,
+            category: category,
+            quantity: quantity,
+            price: price,
         },
+        dataType: "json",
         success: function(data){
-           location.reload();
+            alert("Product Updated!");
+            location.reload();
         },
+        error:function(data){
+            alert("Product Not Updated!");
+            location.reload();
+        }
     })
 });
