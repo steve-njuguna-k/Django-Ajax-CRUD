@@ -37,11 +37,39 @@ $.ajax({
     success : function (response) {
         let trHTML = '';
         $.each(response, function (i, item) {
-           trHTML += "<tr><th>" + item.id + "</th><td>" + item.name + "</td><td>" + item.category + "</td><td>" + item.quantity + "</td><td>" + item.price +  "</td><td> <button class='btn btn-success update btn-sm' id ="+ item.id +" data-toggle='modal' data-target='#editProduct'>Update</button> <button class='btn btn-danger delete btn-sm' id ="+ item.id +" data-toggle='modal' data-target='#deleteProduct'>Delete</button>"
+           trHTML += "<tr><th>" + item.id + "</th><td>" + item.name + "</td><td>" + item.category + "</td><td>" + item.quantity + "</td><td>" + item.price +  "</td><td> <button class='btn btn-success update btn-sm' id ="+ item.id +" data-toggle='modal' data-target='#editProduct'>Update</button> <button class='btn btn-danger btn-sm delete' id ="+ item.id +" data-toggle='modal' data-target='#deleteProduct'>Delete</button>"
            "</td></tr>";
         });
         $('#Product-Records').append(trHTML);
     }
+});
+
+$('#create').click(function(){ 
+    $("#add-Product").trigger('reset');
+});
+
+//Save New Product Button
+$(function() { 
+        $('#addProduct').on('submit', function(e) { 
+            e.preventDefault();  
+
+            let myurl = "http://localhost:8000/api/products/add/";
+
+        $.ajax({
+            type : 'POST',
+            url : myurl,
+            data : $("#addProduct :input").serializeArray(),
+            dataType: "json",
+            success: function(data){
+                alert("Product Added!");
+                location.reload();
+            },
+            error:function(data){
+                alert("Product Not Added!");
+                location.reload();
+            }
+        });
+    });
 });
 
 //Edit Products API
@@ -51,7 +79,7 @@ $('#Product-Records').on('click', '.update', function(e){
     let id = $(this).attr('id');
     $('input[id=Myid]').val(id);
 
-    let myurl = 'http://localhost:8000/api/products/'+id+'/';
+    let myurl = "http://localhost:8000/api/products/"+id+"/";
 
     $( "#p-name" ).change(function() {
         $('input[name=name]').val($(this).val());
@@ -80,63 +108,10 @@ $('#Product-Records').on('click', '.update', function(e){
 
 });
 
-//Delete Products API
-$('#Product-Records').on('click', '.delete', function(e){
-    e.preventDefault();
-
-    let id = $(this).attr('id');
-    $('input[id=Myid]').val(id);
-
-    let myurl = 'http://localhost:8000/api/products/delete/'+id+'/';
-
-    $.ajax({
-        async: true,
-        url:myurl,
-        method:'DELETE',
-        success: function(result){
-            alert("Product Deleted!");
-            location.reload();
-        },
-        error:function(result){
-            alert("error");
-            location.reload();
-        }
-    });
-
-});
-
-$('#create').click(function(){ 
-    $("#add-Product").trigger('reset');
-});
-
-//Save New Product Button
-$(function() { //shorthand document.ready function
-    $('#addProduct').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
-
-        let myurl = "http://localhost:8000/api/products/add/";
-
-    $.ajax({
-        type : 'POST',
-        url : myurl,
-        data : $("#addProduct :input").serializeArray(),
-        dataType: "json",
-        success: function(data){
-            alert("Product Added!");
-            location.reload();
-        },
-        error:function(data){
-            alert("Product Not Added!");
-            location.reload();
-        }
-    });
-});
-});
-
 //Save Edited Product Button
-$(function() { //shorthand document.ready function
-        $('#editProduct').on('submit', function(e) { //use on if jQuery 1.7+
-            e.preventDefault();  //prevent form from submitting
+$(function() { 
+        $('#editProduct').on('submit', function(e) { 
+            e.preventDefault();  
 
             let id = $("#Myid").attr("value");
             console.log(id);
@@ -159,3 +134,50 @@ $(function() { //shorthand document.ready function
         });
     });
 });
+
+//Delete Products API
+$('#Product-Records').on('click', ".delete", function(e){
+    e.preventDefault();
+    
+    let id = $(this).attr('id');
+    $('input[id=Myid]').val(id);
+    console.log(id)
+
+    let myurl = "http://localhost:8000/api/products/"+id+"/";
+
+    $.ajax({
+        async: true,
+        url:myurl,
+        method:'GET',
+        success: function(result){
+            $('input[name="id"]').val(result.id);
+        }
+    });
+
+});
+
+//Save Delete Products Button
+$(function() { 
+        $('#deleteProduct').on('submit', function(e) { 
+            e.preventDefault(); 
+
+            let id = $("#Myid").attr("value");
+            console.log(id);
+
+        let myurl = "http://localhost:8000/api/products/delete/"+id+"/";
+
+        $.ajax({
+            async: true,
+            url:myurl,
+            method:'DELETE',
+            success: function(result){
+                location.reload();
+            },
+            error:function(result){
+                alert("Product Not Deleted!");
+                location.reload();
+            }
+        });
+
+    });
+});   
