@@ -14,7 +14,7 @@
     <div class="container-fluid py-5">
         <div class="row mb-4">
           <div class="col-lg-8 mx-auto text-center">
-            <h1 class="display-4">Product AJAX CRUD Operations</h1>
+            <h1 class="display-4">Django AJAX API CRUD Operations</h1>
             <p class="lead mb-0">A Simple Product Inventory for Creating, Reading, Updating <br> & Deleting Product Information</p>
           </div>
         </div>
@@ -24,13 +24,13 @@
         <div class="row">
             <div class="col-sm-12">
                 <table id="Product-Records" class="table table-bordered">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
+                            <th scope="col">Product Name</th>
                             <th scope="col">Category</th>
                             <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
+                            <th scope="col">Price Per Unit (Ksh.)</th>
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>
@@ -49,7 +49,7 @@
     <!-- Add Product Modal -->
     <div class="container">        
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
@@ -99,7 +99,7 @@
     <!-- Edit Product Modal -->
     <div class="container">
         <div class="modal fade" id="editProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
@@ -149,7 +149,7 @@
     <!-- Delete Product Modal -->
     <div class="container">
         <div class="modal fade" id="deleteProduct" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Delete Product</h5>
