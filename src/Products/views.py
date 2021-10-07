@@ -37,7 +37,6 @@ def EditProductAPI(request, id):
     serializer = ProductSerializer(product, data=request.data)
     if serializer.is_valid():
         serializer.save()
-        print(request.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     print(request.data)
