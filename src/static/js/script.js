@@ -110,64 +110,52 @@ $('#create').click(function(){
 });
 
 //Save New Product Button
-$('#p-create').click(function(e){
-    e.preventDefault();
+$(function() { //shorthand document.ready function
+    $('#addProduct').on('submit', function(e) { //use on if jQuery 1.7+
+        e.preventDefault();  //prevent form from submitting
+
+        let myurl = "http://localhost:8000/api/products/add/";
 
     $.ajax({
         type : 'POST',
-        url : "http://localhost:8000/api/products/add/",
-        data : {
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            name: $('#p-name').val(),
-            category:$('#p-category').val(),
-            quantity:$('#p-quantity').val(),
-            price:$('#p-price').val(),
-        },
+        url : myurl,
+        data : $("#addProduct :input").serializeArray(),
         dataType: "json",
         success: function(data){
             alert("Product Added!");
-            console.log(data)
-            location.reload(); 
+            location.reload();
         },
         error:function(data){
             alert("Product Not Added!");
             location.reload();
         }
-    })
+    });
+});
 });
 
 //Save Edited Product Button
-$('#p-edit').click(function(e){
-    e.preventDefault();
+$(function() { //shorthand document.ready function
+        $('#editProduct').on('submit', function(e) { //use on if jQuery 1.7+
+            e.preventDefault();  //prevent form from submitting
 
-    let id = $("#Myid").attr("value");
-    console.log(id);
+            let id = $("#Myid").attr("value");
+            console.log(id);
 
-    let name = $(".name").val();
-    let category = $(".category").val();
-    let quantity = $(".quantity").val();
-    let price = $(".price").val();
+            let myurl = "http://localhost:8000/api/products/edit/"+id+"/";
 
-    let myurl = "http://localhost:8000/api/products/edit/"+id+"/";
-
-    $.ajax({
-        type : 'PUT',
-        url : myurl,
-        data: {
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            name: name,
-            category: category,
-            quantity: quantity,
-            price: price,
-        },
-        dataType: "json",
-        success: function(data){
-            alert("Product Updated!");
-            location.reload();
-        },
-        error:function(data){
-            alert("Product Not Updated!");
-            location.reload();
-        }
-    })
+        $.ajax({
+            type : 'PUT',
+            url : myurl,
+            data : $("#editProduct :input").serializeArray(),
+            dataType: "json",
+            success: function(data){
+                alert("Product Updated!");
+                location.reload();
+            },
+            error:function(data){
+                alert("Product Not Updated!");
+                location.reload();
+            }
+        });
+    });
 });
