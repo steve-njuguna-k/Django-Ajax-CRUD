@@ -1,6 +1,26 @@
 # Django Ajax CRUD
 Django Product Directory App for Performing CRUD Operations using AJAX, Bootstrap Modal Forms, Django Rest API & PostgreSQL Database
 
+![](https://github.com/steve-njuguna-k/Django-Ajax-CRUD/blob/master/screenshots/1.PNG)
+
+### Functionalities
+
+- You Can Add New Products
+
+![](https://github.com/steve-njuguna-k/Django-Ajax-CRUD/blob/master/screenshots/2.PNG)
+
+- You Can Edit Current Products
+
+![](https://github.com/steve-njuguna-k/Django-Ajax-CRUD/blob/master/screenshots/3.PNG)
+
+- You Can Delete Products with a Confirmation Message
+
+![](https://github.com/steve-njuguna-k/Django-Ajax-CRUD/blob/master/screenshots/4.PNG)
+
+- You Can Access the Products API
+
+![](https://github.com/steve-njuguna-k/Django-Ajax-CRUD/blob/master/screenshots/5.PNG)
+
 ## Project Setup Instructions
 1) Git clone the repository 
 ```
