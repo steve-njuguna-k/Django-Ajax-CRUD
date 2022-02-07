@@ -42,23 +42,27 @@ env\scripts\activate
 ```
 pip install -r requirements.txt
 ```
-6. Make Migrations
+6. Move into src Folder
+```
+cd src
+```
+7. Make Migrations
 ```
 py manage.py makemigrations
 ```
-7. Migrate Database
+8. Migrate Database
 ```
 py manage.py migrate
 ```
-8. Run Project
+9. Run Project
 ```
 py manage.py runserver
 ```
-9. Head over to URL
+10. Head over to URL
 ```
 http://127.0.0.1:8000/
 ```
-10. Or Head over to the API URL
+11. Or Head over to the API URL
 ```
 http://127.0.0.1:8000/api/products
 ```
